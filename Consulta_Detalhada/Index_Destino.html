@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Calculadora Inteligente de KM</title>
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="Style_Destino.css" />
+</head>
+<body>
+   <div class="sidebar">
+<a  href="../pagina-home/home.html" class="a-logo"><img alt="LandApp Logo" class="logo" src="https://admin.landapp.com.br/logo/svg/white.svg"/></a>
+<h3 class="title">Precificação LandApp</h3>
+<a href="../Consulta_Rapida/index.html" class="a-links"><i class="fas fa-arrow-left"></i><span>Consulta Rápida</span></a>
+<a href="../Consulta_Detalhada/Index_Destino.html" class="a-links"><i class="fas fa-route"></i><span>Consulta Detalhada</span></a>
+<a href="../Calculadora_Fretes_Completa/Index_Fretes.html" class="a-links"><i class="fas fa-truck"></i><span>Consulta Fretes</span></a>
+</div>
+  <div class="main">
+    <div class="content">
+      <h2>Consulta Detalhada de Destinação</h2>
+      <div class="card">
+        <label for="end1"><i class="fas fa-map-marker-alt"></i> Endereço de Origem:</label>
+        <input type="text" id="end1" placeholder="Digite o endereço de origem" />
+        <button onclick="calcularRotas()"><i class="fas fa-route"></i> Calcular Rotas</button>
+        <button onclick="exportarXLSX()"><i class="fas fa-file-excel"></i> Exportar XLSX</button>
+
+        <div id="resultadoBox" style="display:none;">
+          <p>✅ Cálculo realizado com sucesso!</p>
+          <table id="tabelaResultados">
+            <thead>
+              <tr>
+                <th onclick="ordenarTabela(0)">Destino <i class='fas fa-sort'></i></th>
+                <th onclick="ordenarTabela(1)">Endereço <i class='fas fa-sort'></i></th>
+                <th onclick="ordenarTabela(2)">Distância <i class='fas fa-sort'></i></th>
+                <th onclick="ordenarTabela(3)">Duração <i class='fas fa-sort'></i></th>
+                <th onclick="ordenarTabela(4)">Preço <i class='fas fa-sort'></i></th>
+                <th>Rota</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div id="map"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="Script_Destino.js"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Calculadora Inteligente de KM</title>
+    
+    <!-- Link Font Awesome para ícones -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+   <div class="sidebar">
+<a  href="../pagina-home/home.html" class="a-logo"><img alt="LandApp Logo" class="logo" src="https://admin.landapp.com.br/logo/svg/white.svg"/></a>
+<h3 class="title">Precificação LandApp</h3>
+<a href="../Consulta_Rapida/index.html" class="a-links"><i class="fas fa-arrow-left"></i><span>Consulta Rápida</span></a>
+<a href="../Consulta_Detalhada/Index_Destino.html" class="a-links"><i class="fas fa-route"></i><span>Consulta Detalhada</span></a>
+<a href="../Calculadora_Fretes_Completa/Index_Fretes.html" class="a-links"><i class="fas fa-truck"></i><span>Consulta Fretes</span></a>
+</div>
+
+    <!-- <div class="sidebar" style="padding: 20px;">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACqCAYAAAD/xuCQAAABtUlEQVR4nO3RsQ3CMBRE0T78/7e4uHAmqkk4MbNhAfc1zqtO9cZlAsFHR0dHR0dHR0dHR0dHR0dHR0f38XwZ/Wz7wH4bZ+dBPH9Hgvg/wfY+nv4vwfY+nv4vwfY+nv4vwfY+nv4vwfY+nv4vwfY+nv4vwfY+nv4vwfY+nv4vwfY+nv4vwfY+nv4vwfY+nv4vwfY+nv4vwfY+nv4vwfY+nv4vwfY+nv4vwfY+nv4vwfY+nv4vwfY+nv4vwfY+nv4vwfY+nv4vwfY+nv4vwfY+nv4vwfY+nv4vwfY+nv4vwfY+nv4vwfY+nv4vwfY+nv4vwfY+nv4vwfY+nv4vwfY+nv4vwfY+nv4vwfY+nv4vwfY+nv4vwfY+nv4vwfY+nv4vwfY+nv4vwfY+nv4vwfY+nv4vwfY+nv4vwfY+nv4vwfY+nv4vYfXz/Cp0BOFFzHqRjSRAAAAAElFTkSuQmCC" 
+             alt="Logo LandApp" 
+             style="width: 120px; height: auto; display: block; margin-bottom: 10px;" />
+        <h1>LandApp - Calculadora de Rota</h1>
+    </div> -->
+    <div class="main">
+        <div class="content">
+            <h2>Calculadora Inteligente de Distância</h2>
+            <div class="card">
+                <label for="end1"><i class="fas fa-map-marker-alt"></i>Endereço 1:</label>
+                <input type="text" id="end1" placeholder="Digite o endereço 1" />
+
+                <label for="tipoEnvio"><i class="fas fa-truck"></i>Tipo:</label>
+                <select id="tipoEnvio" onchange="atualizarEndereco2()">
+                    <option value="aterro">Aterro Zero</option>
+                    <option value="envio">Envio</option>
+                </select>
+
+                <label for="end2" id="labelEnd2"><i class="fas fa-map-marker-alt"></i>Endereço 2:</label>
+                <input type="text" id="end2" placeholder="Digite o endereço 2" />
+
+                <button onclick="calcularDistancia()">
+                    <i class="fas fa-route"></i> Calcular Distância Total
+                </button>
+
+                <p id="custoKm"><i class="fas fa-dollar-sign"></i> Custo por Km: R$ 21,71</p>
+                <p id="custoKmDescricao"><em>*Média de preço Km - BI</em></p>
+
+                <div id="resultadoBox" style="display:none;">
+                    <p>✅ Cálculo realizado com sucesso!</p>
+                    <div id="distanciaCaixa" class="resultadoCaixa"></div>
+                    <div id="tempoCaixa" class="resultadoCaixa"></div>
+                    <div id="precoCaixa" class="resultadoCaixa"></div>
+                </div>
+                <p id="linkRota"></p>
+            </div>
+        </div>
+    </div>
+    <script src="./script.js"></script>
+</body>
+</html>
