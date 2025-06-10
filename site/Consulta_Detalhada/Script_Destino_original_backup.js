@@ -1,6 +1,6 @@
 const DMT = {
   "Athene": { "Norte": 1.2, "Oeste": 1.2, "Leste": 1.25, "Sul": 1.2 },
-  "CAVA": { "Norte": 1.2, "Oeste": 1.2, "Leste": 1.2, "Sul": 1.2 },
+  "CAVA Lagoa de Carapicuíba": { "Norte": 1.2, "Oeste": 1.2, "Leste": 1.2, "Sul": 1.2 },
   "Eleven": { "Norte": 1.1, "Oeste": 1.1, "Leste": 1.1, "Sul": 1.1 },
   "Empreiterra": { "Norte": 1.2, "Oeste": 1.2, "Leste": 1.25, "Sul": 1.2 },
   "Essencis": { "Norte": 1.35, "Oeste": 1.3, "Leste": 1.3, "Sul": 1.3 },
@@ -37,7 +37,7 @@ async function calcularRotas() {
   }
 
   const destinos = [
-    { nome: "CAVA", endereco: "Av. Marginal Direita, 900", preco: 20.04 },
+    { nome: "CAVA Lagoa de Carapicuíba", endereco: "Av. Marginal Direita, 900", preco: 20.04 },
     { nome: "Imbulix", endereco: "Estrada Comendador, 26 - Jardim Magali, Embu das Artes - SP, 06833-070", preco: 21.29 },
     { nome: "Itaquareia", endereco: "Estrada Governador Mario Covas Júnior 1000", preco: 18.39 },
     { nome: "Lara Ambiental", endereco: "Avenida Guaraciaba, 430, Mauá", preco: 22.82 },
@@ -45,7 +45,7 @@ async function calcularRotas() {
     { nome: "Essencis", endereco: "Rod. dos Bandeirantes, km. 33, Caieiras", preco: 25.97 },
     { nome: "Temari", endereco: "Avenida Candea, 113", preco: 25.97 },
     { nome: "UVR Grajau", endereco: "Av. Paulo Guilguer Reimberg, 3920", preco: 25.97 },
-    { nome: "Empreiterra", endereco: "R. Dr. Passos, 121 Itapegica", preco: 25.97 },
+    { nome: "Empreiterra Ambiental", endereco: "R. Dr. Passos, 121 Itapegica", preco: 25.97 },
     { nome: "UVR Paineiras", endereco: "Estr. do Schmidt, 74118 - Grajaú", preco: 34.76 },
     { nome: "Eleven", endereco: "Estr de São Bento 4971", preco: 34.76 },
     { nome: "Athene", endereco: "Rua José Marques Ribeiro Cajamar", preco: 34.76 }
@@ -90,7 +90,7 @@ async function calcularRotas() {
 
       let dmtBase = DMT[destino.nome] ? DMT[destino.nome][zona] : 1.0;
       if (regiao === "Bairro") dmtBase += 0.05;
-      if (equipamento === "Pequeno Porte") dmtBase += 0.15;
+      if (equipamento === "Grande Porte") dmtBase += 0.15;
 
       const preco = distanciaKm * dmtBase;
       const rotaURL = `https://www.google.com/maps/dir/${origemCoord[1]},${origemCoord[0]}/${destinoCoord[1]},${destinoCoord[0]}`;

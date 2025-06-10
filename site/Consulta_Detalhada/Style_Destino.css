@@ -142,3 +142,27 @@ th {
   border-radius: 10px;
   width: 100%;
 }
+
+
+#resultadoBox {
+  overflow-x: auto;
+}
+
+#tabelaResultados {
+  min-width: 900px;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#tabelaResultados th,
+#tabelaResultados td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+  white-space: nowrap;
+}
+
+#tabelaResultados th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
