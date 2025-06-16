@@ -39,7 +39,7 @@ async function calcularRotas() {
   const destinos = [
     { nome: "CAVA Lagoa de Carapicuíba", endereco: "Av. Marginal Direita, 900", preco: 20.04 },
     { nome: "Imbulix", endereco: "Estrada Comendador, 26 - Jardim Magali, Embu das Artes - SP, 06833-070", preco: 21.29 },
-    { nome: "Itaquareia", endereco: "Avenida Vereador Almiro Dias de Oliveira 1112", preco: 18.39 },
+    { nome: "Itaquareia", endereco: "Estrada Governador Mario Covas Júnior 1000", preco: 18.39 },
     { nome: "Lara Ambiental", endereco: "Avenida Guaraciaba, 430, Mauá", preco: 22.82 },
     { nome: "Olifar", endereco: "Avenida Carlos Barbosa Santos, 1460", preco: 25.97 },
     { nome: "Essencis", endereco: "Rod. dos Bandeirantes, km. 33, Caieiras", preco: 25.97 },
@@ -90,7 +90,7 @@ async function calcularRotas() {
 
       let dmtBase = DMT[destino.nome] ? DMT[destino.nome][zona] : 1.0;
       if (regiao === "Bairro") dmtBase += 0.05;
-      if (equipamento === "Pequeno Porte") dmtBase += 0.15;
+      if (equipamento === "Grande Porte") dmtBase += 0.15;
 
       const preco = distanciaKm * dmtBase;
       const rotaURL = `https://www.google.com/maps/dir/${origemCoord[1]},${origemCoord[0]}/${destinoCoord[1]},${destinoCoord[0]}`;

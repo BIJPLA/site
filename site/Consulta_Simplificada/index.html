@@ -24,14 +24,39 @@
 <a class="a-links" href="../Consulta_Simplificada/index.html">
   <i class="fas fa-search"></i><span>Consulta Simplificada</span>
 </a>
-
 <a class="a-links" href="../Calculadora_Fretes_Completa/index.html"><i class="fas fa-truck"></i><span>Consulta Fretes</span></a>
 </div>
 <div class="main">
 <div class="content">
-<h2>Consulta Detalhada de Destinação</h2>
+<h2>Consulta Simplificada</h2>
 <div class="card"><div style="margin-bottom: 15px;"><label style="display: flex; align-items: center; font-weight: bold;"><i class="fas fa-building" style="margin-right: 8px;"></i>Nome da Obra:</label><input id="obra" placeholder="Digite o nome da obra" style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc;" type="text"/></div><div style="margin-bottom: 15px;"><label style="display: flex; align-items: center; font-weight: bold;"><i class="fas fa-map-marker-alt" style="margin-right: 8px;"></i>Zona:</label><select id="zona" style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc;"><option value="Sul">Sul</option><option value="Norte">Norte</option><option value="Leste">Leste</option><option value="Oeste">Oeste</option></select></div><div style="margin-bottom: 15px;"><label style="display: flex; align-items: center; font-weight: bold;"><i class="fas fa-truck" style="margin-right: 8px;"></i>Equipamento:</label><select id="equipamento" style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc;"><option value="Grande Porte">Grande Porte</option><option value="Pequeno Porte">Pequeno Porte</option></select></div><div style="margin-bottom: 15px;"><label style="display: flex; align-items: center; font-weight: bold;"><i class="fas fa-map" style="margin-right: 8px;"></i>Região:</label><select id="regiao" style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc;"><option value="Bairro">Bairro</option><option value="Marginal">Marginal</option></select></div>
+
+<div style="margin-bottom: 15px;">
+  <label style="display: flex; align-items: center; font-weight: bold;">
+    <i class="fas fa-cogs" style="margin-right: 8px;"></i>Tipo de Operação:
+  </label>
+  <select id="tipo-operacao" style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc;">
+    <option value="Envio">Envio</option>
+    <option value="Bota Fora Temporário">Bota Fora Temporário</option>
+    <option value="Aterro Zero">Aterro Zero</option>
+  </select>
+</div>
 <div style="margin-bottom: 15px;"><label style="display: flex; align-items: center; font-weight: bold;"><i class="fas fa-map-marker-alt" style="margin-right: 8px;"></i>Endereço de Origem:</label><input id="end1" placeholder="Digite o endereço de origem" style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc;" type="text"/></div>
+<div style="margin-bottom: 15px;">
+  
+<div style="margin-bottom: 15px;">
+  <label style="display: flex; align-items: center; font-weight: bold;">
+    <i class="fas fa-map-marker-alt" style="margin-right: 8px;"></i>Nome do Destino:
+  </label>
+  <input type="text" id="nome-destino" placeholder="Digite o nome do destino"
+         style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc;" disabled />
+</div>
+<label style="display: flex; align-items: center; font-weight: bold;">
+    <i class="fas fa-map-marker-alt" style="margin-right: 8px;"></i>Endereço de Destino:
+  </label>
+  <input type="text" id="end2" placeholder="Digite o endereço de destino" style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc;" / disabled>
+</div>
+
 <button onclick="calcularRotas()"><i class="fas fa-route"></i> Calcular Rotas</button>
 <button onclick="exportarXLSX()"><i class="fas fa-file-excel"></i> Exportar XLSX</button>
 <button onclick="exportarPDF()"><i class="fas fa-file-pdf"></i> Exportar PDF</button>
@@ -71,6 +96,27 @@
 
 
 
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const tipoOperacaoSelect = document.getElementById("tipo-operacao");
+  const campoEndereco2 = document.getElementById("end2");
+
+  function atualizarCampoEndereco2() {
+    const valor = tipoOperacaoSelect.value;
+    if (valor === "Aterro Zero" || valor === "Bota Fora Temporário") {
+      campoEndereco2.disabled = false;
+    } else {
+      campoEndereco2.disabled = true;
+      campoEndereco2.value = "";
+    }
+  }
+
+  tipoOperacaoSelect.addEventListener("change", atualizarCampoEndereco2);
+  atualizarCampoEndereco2(); // aplicar ao carregar
+});
+</script>
 
 </body>
 </html>

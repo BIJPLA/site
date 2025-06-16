@@ -36,20 +36,27 @@ async function calcularRotas() {
     return;
   }
 
-  const destinos = [
+  
+let destinos = [];
+const tipoOperacao = document.getElementById("tipo-operacao").value;
+const end2Manual = document.getElementById("end2").value.trim();
+
+if ((tipoOperacao === "Aterro Zero" || tipoOperacao === "Bota Fora Temporário") && end2Manual) {
+  destinos = [{
+    nome: "Destino Manual",
+    endereco: end2Manual,
+    preco: 0
+  }];
+} else {
+  destinos = [
     { nome: "CAVA Lagoa de Carapicuíba", endereco: "Av. Marginal Direita, 900", preco: 20.04 },
     { nome: "Imbulix", endereco: "Estrada Comendador, 26 - Jardim Magali, Embu das Artes - SP, 06833-070", preco: 21.29 },
-    { nome: "Itaquareia", endereco: "Avenida Vereador Almiro Dias de Oliveira 1112", preco: 18.39 },
-    { nome: "Lara Ambiental", endereco: "Avenida Guaraciaba, 430, Mauá", preco: 22.82 },
-    { nome: "Olifar", endereco: "Avenida Carlos Barbosa Santos, 1460", preco: 25.97 },
-    { nome: "Essencis", endereco: "Rod. dos Bandeirantes, km. 33, Caieiras", preco: 25.97 },
-    { nome: "Temari", endereco: "Avenida Candea, 113", preco: 25.97 },
-    { nome: "UVR Grajau", endereco: "Av. Paulo Guilguer Reimberg, 3920", preco: 25.97 },
-    { nome: "Empreiterra Ambiental", endereco: "R. Dr. Passos, 121 Itapegica", preco: 25.97 },
-    { nome: "UVR Paineiras", endereco: "Estr. do Schmidt, 74118 - Grajaú", preco: 34.76 },
-    { nome: "Eleven", endereco: "Estr de São Bento 4971", preco: 34.76 },
-    { nome: "Athene", endereco: "Rua José Marques Ribeiro Cajamar", preco: 34.76 }
+    { nome: "Itaquareia", endereco: "Estrada Governador Mario Covas Júnior 1000", preco: 18.39 },
+    { nome: "Lara Ambiental", endereco: "Rua José Próspero 1035 - São João Clímaco", preco: 18.90 },
+    { nome: "Essencis", endereco: "Estrada Galvão Bueno, 3870", preco: 18.90 }
   ];
+}
+
 
   const geocodificar = async endereco => {
     const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(endereco + ', Brasil')}`);
@@ -90,7 +97,7 @@ async function calcularRotas() {
 
       let dmtBase = DMT[destino.nome] ? DMT[destino.nome][zona] : 1.0;
       if (regiao === "Bairro") dmtBase += 0.05;
-      if (equipamento === "Pequeno Porte") dmtBase += 0.15;
+      if (equipamento === "Grande Porte") dmtBase += 0.15;
 
       const preco = distanciaKm * dmtBase;
       const rotaURL = `https://www.google.com/maps/dir/${origemCoord[1]},${origemCoord[0]}/${destinoCoord[1]},${destinoCoord[0]}`;
@@ -105,7 +112,7 @@ destinosCalculados.push({
     const mapa = {
       "CAVA Lagoa de Carapicuíba": "Av. Marginal Direita, 900",
       "Imbulix": "Estrada Comendador, 26 - Jardim Magali, Embu das Artes - SP, 06833-070",
-      "Itaquareia": "Estrada Governador Mario Covas Júnior 1000",
+      "Itaquareia": "Avenida Vereador Almiro Dias de Oliveira 1112",
       "Lara Ambiental": "Avenida Guaraciaba, 430, Mauá",
       "Olifar": "Avenida Carlos Barbosa Santos, 1460",
       "Essencis": "Rod. dos Bandeirantes, km. 33, Caieiras",
