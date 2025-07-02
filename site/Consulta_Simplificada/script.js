@@ -1,3 +1,54 @@
+function Preco(km) {
+  let fator = 0;
+  if (km <= 6) return 12.00;
+  else if (km <= 10) fator = 1.75;
+  else if (km <= 15) fator = 1.70;
+  else if (km <= 20) fator = 1.65;
+  else if (km <= 25) fator = 1.60;
+  else if (km <= 30) fator = 1.55;
+  else if (km <= 35) fator = 1.50;
+  else if (km <= 40) fator = 1.45;
+  else return 0;
+  return km * fator;
+}
+
+function calcularDMT(distancia) {
+  if (distancia <= 6) return 12.00;
+  if (distancia <= 10) return 1.75;
+  if (distancia <= 15) return 1.70;
+  if (distancia <= 20) return 1.65;
+  if (distancia <= 25) return 1.60;
+  if (distancia <= 30) return 1.55;
+  if (distancia <= 35) return 1.50;
+  return 1.45;
+}
+
+function Preço(km) {
+  let fator = 0;
+  if (km <= 6) {
+    return 12.00; // valor fixo
+  } else if (km <= 10) {
+    fator = 1.75;
+  } else if (km <= 15) {
+    fator = 1.70;
+  } else if (km <= 20) {
+    fator = 1.65;
+  } else if (km <= 25) {
+    fator = 1.60;
+  } else if (km <= 30) {
+    fator = 1.55;
+  } else if (km <= 35) {
+    fator = 1.50;
+  } else if (km <= 40) {
+    fator = 1.45;
+  } else {
+    return 0;
+  }
+  return km * fator;
+}
+
+
+
 const DMT = {
   "Athene": { "Norte": 1.2, "Oeste": 1.2, "Leste": 1.25, "Sul": 1.2 },
   "CAVA Lagoa de Carapicuíba": { "Norte": 1.2, "Oeste": 1.2, "Leste": 1.2, "Sul": 1.2 },
@@ -29,12 +80,15 @@ function exportarXLSX() {
 
 }
 
-async function calcularRotas() {
-  const end1 = document.getElementById('end1').value.trim();
+async function calcularRotas() {const end1 = document.getElementById('end1').value.trim();
   if (!end1) {
     alert("Por favor, digite o endereço de origem.");
     return;
-  }
+
+    const distanciaKm = distancia.toFixed(2);
+    const dmtCalculado = calcularDMT(distancia);
+    document.getElementById("resultado").innerHTML = `Distância: ${distanciaKm} km<br>DMT: R$ ${dmtCalculado.toFixed(2)} /m³`;
+    }
 
   const destinos = [
     { nome: "CAVA Lagoa de Carapicuíba", endereco: "Av. Marginal Direita, 900", preco: 20.04 },
@@ -82,7 +136,7 @@ async function calcularRotas() {
         body: JSON.stringify({ coordinates: [origemCoord, destinoCoord] })
       });
       const data = await response.json();
-      const distanciaKm = data.routes[0].summary.distance / 1000;
+      const distanciaKm = Number(data.routes[0].summary.distance / 1000);
       const duracaoMin = data.routes[0].summary.duration / 60;
       const zona = document.getElementById('zona').value;
       const equipamento = document.getElementById('equipamento').value;
@@ -92,11 +146,26 @@ async function calcularRotas() {
       if (regiao === "Bairro") dmtBase += 0.05;
       if (equipamento === "Grande Porte") dmtBase += 0.15;
 
-      const preco = distanciaKm * dmtBase;
+      const preco = calcularValorAterroZero(distanciaKm);
       const rotaURL = `https://www.google.com/maps/dir/${origemCoord[1]},${origemCoord[0]}/${destinoCoord[1]},${destinoCoord[0]}`;
 
       
-const linha = `<tr><td>${destino.nome}</td><td>${distanciaKm.toFixed(2)} km</td><td>${Math.round(duracaoMin)} min</td><td>${dmtBase.toFixed(2)}</td><td>R$ ${preco.toFixed(2)}</td><td>R$ ${((distanciaKm + 3) * dmtBase).toFixed(2)}</td><td>R$ ${((distanciaKm + 5) * dmtBase).toFixed(2)}</td><td><a href="${rotaURL}" target="_blank">Ver rota</a></td></tr>`;
+const linha = "<tr>" +
+"<td>" + destino.nome + "</td>" +
+"<td>" + distanciaKm.toFixed(2) + " km</td>" +
+"<td>" + Math.round(duracaoMin) + " min</td>" +
+"<td>" + (distanciaKm <= 6 ? "--" : (
+  distanciaKm <= 10 ? "1.75" :
+  distanciaKm <= 15 ? "1.70" :
+  distanciaKm <= 20 ? "1.65" :
+  distanciaKm <= 25 ? "1.60" :
+  distanciaKm <= 30 ? "1.55" :
+  distanciaKm <= 35 ? "1.50" :
+  distanciaKm <= 40 ? "1.45" : "Fora da faixa")) + "</td>" +
+"<td>R$ " + preco.toFixed(2).replace(".", ",") + "</td>" +
+"<td>R$ " + calcularValorAterroZero(3).toFixed(2).replace(".", ",") + "</td>" +
+"<td>R$ " + calcularValorAterroZero(5).toFixed(2).replace(".", ",") + "</td>" +
+"</tr>";
 destinosCalculados.push({
   nomeObra: document.getElementById("obra").value.trim(),
   enderecoOrigem: document.getElementById("end1").value.trim(),
@@ -198,4 +267,40 @@ function exportarXLSX() {
   const titulo = document.getElementById("tituloResultado").innerText.trim();
   const nomeArquivo = titulo ? `${titulo}.xlsx` : "rotas.xlsx";
   XLSX.writeFile(wb, nomeArquivo);
+}
+
+const linha = "<tr>" +
+"<td>" + destino.nome + "</td>" +
+"<td>" + distanciaKm.toFixed(2) + " km</td>" +
+"<td>" + Math.round(duracaoMin) + " min</td>" +
+"<td>" + (distanciaKm <= 6 ? "--" : (
+  distanciaKm <= 10 ? "1.75" :
+  distanciaKm <= 15 ? "1.70" :
+  distanciaKm <= 20 ? "1.65" :
+  distanciaKm <= 25 ? "1.60" :
+  distanciaKm <= 30 ? "1.55" :
+  distanciaKm <= 35 ? "1.50" :
+  distanciaKm <= 40 ? "1.45" : "Fora da faixa")) + "</td>" +
+"<td>R$ " + preco.toFixed(2).replace(".", ",") + "</td>" +
+"<td>R$ " + calcularValorAterroZero(3).toFixed(2).replace(".", ",") + "</td>" +
+"<td>R$ " + calcularValorAterroZero(5).toFixed(2).replace(".", ",") + "</td>" +
+"</tr>";
+
+function atualizarTabela(origemNome, origemEndereco, destinoNome, destinoEndereco, distancia) {
+  const tabela = document.getElementById("resultado");
+  const novaLinha = tabela.insertRow();
+
+  const cel1 = novaLinha.insertCell(0);
+  const cel2 = novaLinha.insertCell(1);
+  const cel3 = novaLinha.insertCell(2);
+  const cel4 = novaLinha.insertCell(3);
+  const cel5 = novaLinha.insertCell(4);
+  const cel6 = novaLinha.insertCell(5);
+
+  cel1.innerHTML = origemNome;
+  cel2.innerHTML = origemEndereco;
+  cel3.innerHTML = destinoNome;
+  cel4.innerHTML = destinoEndereco;
+  cel5.innerHTML = distancia.toFixed(2) + " km";
+  cel6.innerHTML = "R$ " + Preco(distancia).toFixed(2);
 }

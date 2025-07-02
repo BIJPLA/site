@@ -1,18 +1,15 @@
 const DMT = {
-  "CAVA": { "Norte": 1.15, "Oeste": 1.15, "Leste": 1.15, "Sul": 1.15 },
+  "Athene": { "Norte": 1.2, "Oeste": 1.2, "Leste": 1.25, "Sul": 1.2 },
+  "CAVA Lagoa de Carapicuíba": { "Norte": 1.2, "Oeste": 1.2, "Leste": 1.2, "Sul": 1.2 },
+  "Eleven": { "Norte": 1.1, "Oeste": 1.1, "Leste": 1.1, "Sul": 1.1 },
   "Empreiterra": { "Norte": 1.2, "Oeste": 1.2, "Leste": 1.25, "Sul": 1.2 },
-  "Essencis": { "Norte": 1.35, "Oeste": 1.3, "Leste": 1.25, "Sul": 1.3 },
-  "Imbulix": { "Norte": 1.2, "Oeste": 1.2, "Leste": 1.25, "Sul": 1.2 },
+  "Essencis": { "Norte": 1.35, "Oeste": 1.3, "Leste": 1.3, "Sul": 1.3 },
+  "Imbulix": { "Norte": 1.2, "Oeste": 1.2, "Leste": 2.0, "Sul": 1.2 },
   "Itaquareia": { "Norte": 1.1, "Oeste": 1.1, "Leste": 1.1, "Sul": 1.1 },
-  "Olifar": { "Norte": 1.6, "Oeste": 1.3, "Leste": 1.6, "Sul": 1.3 },
-  "UVR Grajau": { "Norte": 1.6, "Oeste": 1.5, "Leste": 1.6, "Sul": 1.5 },
+  "Ambiental": { "Norte": 1.35, "Oeste": 1.3, "Leste": 1.3, "Sul": 1.35 },
+  "Olifar": { "Norte": 2.0, "Oeste": 1.5, "Leste": 2.0, "Sul": 1.5 },
+  "UVR Grajau": { "Norte": 2.0, "Oeste": 1.5, "Leste": 2.0, "Sul": 1.5 },
   "Temari": { "Norte": 1.2, "Oeste": 1.2, "Leste": 1.25, "Sul": 1.2 },
-  "Mombaça": { "Norte": 1.2, "Oeste": 1.2, "Leste": 1.2, "Sul": 1.2 },
-  "HSH": { "Norte": 1.2, "Oeste": 1.2, "Leste": 1.25, "Sul": 1.2 },
-  "Carmosina": { "Norte": 1.35, "Oeste": 1.3, "Leste": 1.35, "Sul": 1.3 },
-  "Nova Ambiental": { "Norte": 1.25, "Oeste": 1.2, "Leste": 1.25, "Sul": 1.2 },
-  "CDR Pedreira": { "Norte": 1.3, "Oeste": 1.3, "Leste": 1.3, "Sul": 1.5 },
-  "Lara": { "Norte": 1.35, "Oeste": 1.35, "Leste": 1.35, "Sul": 1.35 }
 };
 
 function exportarXLSX() {
@@ -40,21 +37,19 @@ async function calcularRotas() {
   }
 
   const destinos = [
-  { nome: "CAVA", coordenadas: [-46.8120277777778, -23.5148333333333], preco: 0 },
-  { nome: "Empreiterra", coordenadas: [-46.5585531, -23.4747267], preco: 0 },
-  { nome: "Imbulix", coordenadas: [-46.8441879, -23.6581408], preco: 0 },
-  { nome: "Itaquareia", coordenadas: [-46.343509, -23.473241], preco: 0 },
-  { nome: "UVR Grajau", coordenadas: [-46.6838059, -23.7948386], preco: 0 },
-  { nome: "Temari", coordenadas: [-46.4647502, -23.4148032], preco: 0 },
-  { nome: "Nova Ambiental", coordenadas: [-46.9783503, -23.5264676], preco: 0 },
-  { nome: "CDR Pedreira", coordenadas: [-46.5629714, -23.4126744], preco: 0 },
-  { nome: "Essencis", coordenadas: [-46.47110, -23.2124000], preco: 0 },
-  { nome: "Olifar", coordenadas: [-46.4029000, -23.4559000], preco: 0 },
-  { nome: "Lara", coordenadas: [-46.282800, -23.421700], preco: 0 },
-  { nome: "Carmosina", coordenadas: [-46.428443, -23.588269], preco: 0 },
-  { nome: "Mombaça", coordenadas: [-46.838467, -23.762414], preco: 0 },
-  { nome: "HSH", coordenadas: [-46.399498, -23.481151], preco: 0 }
-];
+    { nome: "CAVA Lagoa de Carapicuíba", endereco: "Av. Marginal Direita, 900", preco: 20.04 },
+    { nome: "Imbulix", endereco: "Estrada Comendador, 26 - Jardim Magali, Embu das Artes - SP, 06833-070", preco: 21.29 },
+    { nome: "Itaquareia", endereco: "Estrada Governador Mario Covas Júnior 1000", preco: 18.39 },
+    { nome: "Lara Ambiental", endereco: "Avenida Guaraciaba, 430, Mauá", preco: 22.82 },
+    { nome: "Olifar", endereco: "Avenida Carlos Barbosa Santos, 1460", preco: 25.97 },
+    { nome: "Essencis", endereco: "Rod. dos Bandeirantes, km. 33, Caieiras", preco: 25.97 },
+    { nome: "Temari", endereco: "Avenida Candea, 113", preco: 25.97 },
+    { nome: "UVR Grajau", endereco: "Av. Paulo Guilguer Reimberg, 3920", preco: 25.97 },
+    { nome: "Empreiterra Ambiental", endereco: "R. Dr. Passos, 121 Itapegica", preco: 25.97 },
+    { nome: "UVR Paineiras", endereco: "Estr. do Schmidt, 74118 - Grajaú", preco: 34.76 },
+    { nome: "Eleven", endereco: "Estr de São Bento 4971", preco: 34.76 },
+    { nome: "Athene", endereco: "Rua José Marques Ribeiro Cajamar", preco: 34.76 }
+  ];
 
   const geocodificar = async endereco => {
     const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(endereco + ', Brasil')}`);
@@ -77,7 +72,7 @@ async function calcularRotas() {
 
   for (let destino of destinos) {
     try {
-      const destinoCoord = destino.coordenadas;
+      const destinoCoord = await geocodificar(destino.endereco);
       const response = await fetch('https://api.openrouteservice.org/v2/directions/driving-car', {
         method: 'POST',
         headers: {
@@ -95,7 +90,7 @@ async function calcularRotas() {
 
       let dmtBase = DMT[destino.nome] ? DMT[destino.nome][zona] : 1.0;
       if (regiao === "Bairro") dmtBase += 0.05;
-      if (equipamento === "Pequeno Porte") dmtBase += 0.15;
+      if (equipamento === "Grande Porte") dmtBase += 0.15;
 
       const preco = distanciaKm * dmtBase;
       const rotaURL = `https://www.google.com/maps/dir/${origemCoord[1]},${origemCoord[0]}/${destinoCoord[1]},${destinoCoord[0]}`;

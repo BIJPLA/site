@@ -12,7 +12,7 @@
 }
  .sidebar {
   width: 200px;
-  background-color: #f15500;
+  background-color: #ff6600;
   height: 100vh;
   position: fixed;
   color: white;
@@ -50,7 +50,7 @@
 
 } 
 .a-links:hover{
-  background-color: #f15500;
+  background-color: #cf5d11;
   border-radius: 30px;
 }
 .sidebar i{
@@ -92,7 +92,7 @@
         }
         .content h2 {
             text-align: center;
-            color: #343434;
+            color: #2c3e50;
             font-weight: 800;
             font-size: 2.3rem;
             margin-bottom: 30px;
@@ -115,7 +115,7 @@
         }
         label i {
             margin-right: 10px;
-            color: #D3d3d3;
+            color: #2980b9;
             min-width: 20px;
             text-align: center;
         }
@@ -130,8 +130,8 @@
         }
         input:focus, select:focus {
             outline: none;
-            border-color: #D3d3d3;
-            box-shadow: 0 0 8px #D3d3d3;
+            border-color: #2980b9;
+            box-shadow: 0 0 8px #2980b9aa;
         }
         button {
             margin-top: 30px;
@@ -152,14 +152,14 @@
             box-shadow: 0 5px 15px rgba(41, 128, 185, 0.6);
         }
         button:hover {
-            background-color: #D3d3d3;
+            background-color: #216899;
             box-shadow: 0 8px 25px rgba(33, 104, 153, 0.7);
         }
         #custoKm {
             font-weight: 700;
             font-size: 1.2rem;
             margin: 25px 0 5px 0;
-            color: #D3d3d3;
+            color: #2980b9;
         }
         #custoKmDescricao {
             font-size: 0.8rem;
@@ -187,13 +187,13 @@
             margin-top: 15px;
         }
         #linkRota a {
-            color: #D3d3d3;
+            color: #2980b9;
             font-weight: 700;
             text-decoration: none;
             transition: color 0.3s ease;
         }
         #linkRota a:hover {
-            color: #D3d3d3;
+            color: #216899;
             text-decoration: underline;
         }
         @media (max-width: 768px) {

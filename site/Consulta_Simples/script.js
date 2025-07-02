@@ -1,0 +1,65 @@
+
+async function geocodificar(endereco) {
+    const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(endereco + ', Brasil')}`);
+    const data = await response.json();
+    if (data.length > 0) {
+        return [parseFloat(data[0].lon), parseFloat(data[0].lat)];
+    }
+    throw new Error(`Endereço não encontrado: ${endereco}`);
+}
+
+function calcularValorAterroZero(km) {
+    let fator = 0;
+    if (km <= 6) {
+        return 12.00;
+    } else if (km <= 10) {
+        fator = 1.75;
+    } else if (km <= 15) {
+        fator = 1.70;
+    } else if (km <= 20) {
+        fator = 1.65;
+    } else if (km <= 25) {
+        fator = 1.60;
+    } else if (km <= 30) {
+        fator = 1.55;
+    } else if (km <= 35) {
+        fator = 1.50;
+    } else if (km <= 40) {
+        fator = 1.45;
+    } else {
+        return 0;
+    }
+    return km * fator;
+}
+
+async function calcularRota() {
+    const origem = document.getElementById('enderecoOrigem').value;
+    const destino = document.getElementById('enderecoDestino').value;
+    try {
+        const origemCoord = await geocodificar(origem);
+        const destinoCoord = await geocodificar(destino);
+
+        const response = await fetch('https://api.openrouteservice.org/v2/directions/driving-car', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': '5b3ce3597851110001cf62489ba64b90dd6d4ab8bcc92d787f377d8d'
+            },
+            body: JSON.stringify({ coordinates: [origemCoord, destinoCoord] })
+        });
+
+        const data = await response.json();
+        const metros = data.routes[0].summary.distance;
+        const km = (metros / 1000).toFixed(2);
+        const preco = calcularValorAterroZero(km);
+        const dmt = preco > 0 ? (preco / km).toFixed(2) : '--';
+
+        document.getElementById('resultado').innerHTML = `
+            <p><strong>Distância:</strong> ${km} km</p>
+            <p><strong>DMT:</strong> ${dmt}</p>
+            <p><strong>Preço:</strong> R$ ${preco.toFixed(2)}</p>
+        `;
+    } catch (err) {
+        document.getElementById('resultado').innerText = 'Erro ao calcular rota: ' + err.message;
+    }
+}
