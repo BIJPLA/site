@@ -48,7 +48,7 @@ async function calcularRotas() {
   { nome: "Temari", coordenadas: [-46.4647502, -23.4148032], preco: 0 },
   { nome: "Nova Ambiental", coordenadas: [-46.9783503, -23.5264676], preco: 0 },
   { nome: "CDR Pedreira", coordenadas: [-46.5629714, -23.4126744], preco: 0 },
-  { nome: "Essencis", coordenadas: [-46.47110, -23.2124000], preco: 0 },
+  { nome: "Essencis", coordenadas: [-46.786638, -23.356849], preco: 0 },
   { nome: "Olifar", coordenadas: [-46.4029000, -23.4559000], preco: 0 },
   { nome: "Lara", coordenadas: [-46.282800, -23.421700], preco: 0 },
   { nome: "Carmosina", coordenadas: [-46.428443, -23.588269], preco: 0 },
