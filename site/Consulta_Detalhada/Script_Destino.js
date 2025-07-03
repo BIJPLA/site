@@ -69,7 +69,11 @@ async function calcularRotas() {
   const tabelaBody = document.querySelector('#tabelaResultados tbody');
   tabelaBody.innerHTML = "";
 
-  const map = L.map('map').setView([origemCoord[1], origemCoord[0]], 10);
+  if (window.mapInstance) {
+        window.mapInstance.remove();
+    }
+    window.mapInstance = L.map('map').setView([origemCoord[1], origemCoord[0]], 10);
+    const map = window.mapInstance;
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors'
   }).addTo(map);
