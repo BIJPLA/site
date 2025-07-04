@@ -12,7 +12,9 @@ const DMT = {
   "Carmosina": { "Norte": 1.35, "Oeste": 1.3, "Leste": 1.35, "Sul": 1.3 },
   "Nova Ambiental": { "Norte": 1.25, "Oeste": 1.2, "Leste": 1.25, "Sul": 1.2 },
   "CDR Pedreira": { "Norte": 1.3, "Oeste": 1.3, "Leste": 1.3, "Sul": 1.5 },
-  "Lara": { "Norte": 1.35, "Oeste": 1.35, "Leste": 1.35, "Sul": 1.35 }
+  "Lara": { "Norte": 1.35, "Oeste": 1.35, "Leste": 1.35, "Sul": 1.35 },
+  "JS dos Santos": { "Norte": 1.15, "Oeste": 1.15, "Leste": 1.15, "Sul": 1.15 }
+
 };
 
 function exportarXLSX() {
@@ -53,7 +55,8 @@ async function calcularRotas() {
   { nome: "Lara", coordenadas: [-46.282800, -23.421700], preco: 0 },
   { nome: "Carmosina", coordenadas: [-46.428443, -23.588269], preco: 0 },
   { nome: "Mombaça", coordenadas: [-46.838467, -23.762414], preco: 0 },
-  { nome: "HSH", coordenadas: [-46.399498, -23.481151], preco: 0 }
+  { nome: "HSH", coordenadas: [-46.399498, -23.481151], preco: 0 },
+  { nome: "JS dos Santos", coordenadas: [-46.399498, -23.481151], preco: 0 }
 ];
 
   const geocodificar = async endereco => {
