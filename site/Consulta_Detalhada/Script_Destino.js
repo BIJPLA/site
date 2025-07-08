@@ -1,3 +1,21 @@
+async function geocode(address) {
+    const url = `https://nominatim.openstreetmap.org/search?format=json&limit=5&countrycodes=br&bounded=1&viewbox=-47.0,-23.3,-46.3,-23.9&q=${encodeURIComponent(address)}`;
+    const response = await fetch(url, { headers: { 'User-Agent': 'ConsultaSimples' } });
+    const data = await response.json();
+
+    if (data.length === 0) throw new Error("Endereço não encontrado");
+
+    // Ordena por importance
+    data.sort((a, b) => b.importance - a.importance);
+
+    const result = data[0];
+    if (!result || !result.lat || !result.lon) throw new Error("Resposta inválida da geocodificação");
+
+    console.log("Endereço retornado:", result.display_name);
+
+    return [parseFloat(result.lon), parseFloat(result.lat)];
+}
+
 const DMT = {
   "CAVA": { "Norte": 1.15, "Oeste": 1.15, "Leste": 1.15, "Sul": 1.15 },
   "Empreiterra": { "Norte": 1.2, "Oeste": 1.2, "Leste": 1.25, "Sul": 1.2 },
@@ -56,7 +74,7 @@ async function calcularRotas() {
   { nome: "Carmosina", coordenadas: [-46.428443, -23.588269], preco: 0 },
   { nome: "Mombaça", coordenadas: [-46.838467, -23.762414], preco: 0 },
   { nome: "HSH", coordenadas: [-46.399498, -23.481151], preco: 0 },
-  { nome: "JS dos Santos", coordenadas: [-46.399498, -23.481151], preco: 0 }
+  { nome: "JS dos Santos", coordenadas: [-46.46143, -23,26184], preco: 0 }
 ];
 
   const geocodificar = async endereco => {
