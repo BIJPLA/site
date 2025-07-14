@@ -32,22 +32,7 @@ function calcularValorAterroZero(km) {
 }
 
 async function geocode(address) {
-    const url = `https://nominatim.openstreetmap.org/search?format=json&limit=5&countrycodes=br&bounded=1&viewbox=-47.0,-23.3,-46.3,-23.9&q=${encodeURIComponent(address)}`;
-    const response = await fetch(url, { headers: { 'User-Agent': 'ConsultaSimples' } });
-    const data = await response.json();
-
-    if (data.length === 0) throw new Error("Endereço não encontrado");
-
-    // Ordena por importance
-    data.sort((a, b) => b.importance - a.importance);
-
-    const result = data[0];
-    if (!result || !result.lat || !result.lon) throw new Error("Resposta inválida da geocodificação");
-
-    console.log("Endereço retornado:", result.display_name);
-
-    return [parseFloat(result.lon), parseFloat(result.lat)];
-}`;
+    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`;
     const response = await fetch(url, { headers: { 'User-Agent': 'ConsultaSimples' } });
     const data = await response.json();
     if (data.length === 0) throw new Error("Endereço não encontrado");
