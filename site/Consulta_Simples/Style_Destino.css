@@ -166,3 +166,18 @@ th {
   background-color: #f0f0f0;
   font-weight: bold;
 }
+
+/* Travar a coluna Destino */
+#resultadoTabela th.sticky-col,
+#resultadoTabela td.sticky-col {
+    position: sticky;
+    left: 120px; /* ajuste dependendo da largura da coluna Origem */
+    background-color: #fff;
+    z-index: 2;
+}
+#resultadoTabela th:first-child {
+    position: sticky;
+    left: 0;
+    background-color: #fff;
+    z-index: 3;
+}

@@ -53,13 +53,15 @@
 <thead>
 <tr>
   <th onclick="ordenarTabela(0)">Destino <i class="fas fa-sort"></i></th>
-  <th onclick="ordenarTabela(1)">Distância <i class="fas fa-sort"></i></th>
-  <th onclick="ordenarTabela(2)">Duração <i class="fas fa-sort"></i></th>
-  <th onclick="ordenarTabela(3)">DMT <i class="fas fa-sort"></i></th>
-  <th onclick="ordenarTabela(4)">Preço <i class="fas fa-sort"></i></th>
-  <th onclick="ordenarTabela(5)">3 Km <i class="fas fa-sort"></i></th>
-  <th onclick="ordenarTabela(6)">5 Km <i class="fas fa-sort"></i></th>
-  <th onclick="ordenarTabela(7)">Rota <i class="fas fa-sort"></i></th>
+  <th onclick="ordenarTabela(1)">Status <i class="fas fa-sort"></i></th>
+
+  <th onclick="ordenarTabela(2)">Distância <i class="fas fa-sort"></i></th>
+  <th onclick="ordenarTabela(3)">Duração <i class="fas fa-sort"></i></th>
+  <th onclick="ordenarTabela(4)">DMT <i class="fas fa-sort"></i></th>
+  <th onclick="ordenarTabela(5)">Preço <i class="fas fa-sort"></i></th>
+  <th onclick="ordenarTabela(6)">3 Km <i class="fas fa-sort"></i></th>
+  <th onclick="ordenarTabela(7)">5 Km <i class="fas fa-sort"></i></th>
+  <th onclick="ordenarTabela(8)">Rota <i class="fas fa-sort"></i></th>
 </tr>
 </thead>
 
@@ -83,11 +85,6 @@
 
 
 
-</body>
-</html>
-
-
-
 
 <script>
 function exportarPDF() {
@@ -107,8 +104,8 @@ function exportarPDF() {
   pdf.text(titulo, pageWidth / 2, 12, { align: "center" });
 
   // Configurações da tabela
-  const headers = ["Destino", "Distância", "Duração", "DMT", "Preço", "3 Km", "5 Km", "Rota"];
-  const colWidths = [35, 22, 20, 15, 22, 22, 22, 32];
+  const headers = ["Destino", "Status", "Distância", "Duração", "DMT", "Preço", "3 Km", "5 Km", "Rota"];
+  const colWidths = [30, 22, 22, 20, 15, 22, 22, 22, 30];
   let startY = 30;
   let rowHeight = 8;
 
@@ -117,29 +114,32 @@ function exportarPDF() {
   pdf.setTextColor(0);
   headers.forEach((header, i) => {
     const x = 10 + colWidths.slice(0, i).reduce((a, b) => a + b, 0);
-    pdf.setFillColor(240, 240, 240);
-    pdf.rect(x, startY, colWidths[i], rowHeight, 'F');
-    pdf.setDrawColor(200);
-    pdf.rect(x, startY, colWidths[i], rowHeight);
-    pdf.text(header, x + 2, startY + 5);
+    if (colWidths[i]) {
+      pdf.setFillColor(240, 240, 240);
+      pdf.rect(x, startY, colWidths[i], rowHeight, 'F');
+      pdf.setDrawColor(200);
+      pdf.rect(x, startY, colWidths[i], rowHeight);
+      pdf.text(header, x + 2, startY + 5);
+    }
   });
 
   startY += rowHeight;
 
   // Linhas da tabela
-  linhas.forEach((linha, index) => {
+  linhas.forEach((linha) => {
     const colunas = linha.querySelectorAll("td");
     colunas.forEach((coluna, i) => {
       const texto = coluna.innerText || "";
       const x = 10 + colWidths.slice(0, i).reduce((a, b) => a + b, 0);
-      pdf.setDrawColor(220);
-      pdf.rect(x, startY, colWidths[i], rowHeight);
-      pdf.setTextColor(30);
-      pdf.text(texto.substring(0, 40), x + 2, startY + 5);
+      if (colWidths[i]) {
+        pdf.setDrawColor(220);
+        pdf.rect(x, startY, colWidths[i], rowHeight);
+        pdf.setTextColor(30);
+        pdf.text(texto.substring(0, 40), x + 2, startY + 5);
+      }
     });
     startY += rowHeight;
 
-    // Nova página se ultrapassar altura
     if (startY > 270) {
       pdf.addPage();
       startY = 20;
@@ -149,6 +149,12 @@ function exportarPDF() {
   pdf.save(nomeArquivo);
 }
 </script>
+</body>
+</html>
+
+
+
+
 
 
 

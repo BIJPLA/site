@@ -166,3 +166,13 @@ th {
   background-color: #f0f0f0;
   font-weight: bold;
 }
+
+
+/* Travar a coluna 'Destino' */
+#tabelaResultados th:nth-child(1),
+#tabelaResultados td:nth-child(1) {
+    position: sticky;
+    left: 0;
+    background: #fff;
+    z-index: 2;
+}

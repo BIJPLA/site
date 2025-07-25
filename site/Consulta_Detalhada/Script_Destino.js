@@ -38,18 +38,16 @@ const DMT = {
 function exportarXLSX() {
   const rows = document.querySelectorAll('#tabelaResultados tbody tr');
   const wb = XLSX.utils.book_new();
-  const data = [['Destino', 'Endereço', 'Distância', 'Duração', 'Preço', 'Rota']];
+  const data = [['Destino', 'Endereço', 'Status', 'Distância', 'Duração', 'Preço', 'Rota']];
   rows.forEach(row => {
     const cols = Array.from(row.querySelectorAll('td')).map(cell => cell.innerText);
     data.push(cols);
   });
   const ws = XLSX.utils.aoa_to_sheet(data);
   XLSX.utils.book_append_sheet(wb, ws, 'Rotas');
-  
-  const titulo = document.getElementById("tituloResultado").innerText.trim();
-  const nomeArquivo = titulo ? `${titulo}.xlsx` : "rotas.xlsx";
-  XLSX.writeFile(wb, nomeArquivo);
 
+  const titulo = document.getElementById("tituloResultado").innerText.replace(/\s+/g, '_');
+  XLSX.writeFile(wb, `${titulo}.xlsx`);
 }
 
 async function calcularRotas() {
@@ -60,22 +58,22 @@ async function calcularRotas() {
   }
 
   const destinos = [
-  { nome: "CAVA", coordenadas: [-46.8120277777778, -23.5148333333333], preco: 0 },
-  { nome: "Empreiterra", coordenadas: [-46.5585531, -23.4747267], preco: 0 },
-  { nome: "Imbulix", coordenadas: [-46.841689, -23.662857], preco: 0 },
-  { nome: "Itaquareia", coordenadas: [-46.343509, -23.473241], preco: 0 },
-  { nome: "UVR Grajau", coordenadas: [-46.6838059, -23.7948386], preco: 0 },
-  { nome: "Temari", coordenadas: [-46.4647502, -23.4148032], preco: 0 },
-  { nome: "Nova Ambiental", coordenadas: [-46.9783503, -23.5264676], preco: 0 },
-  { nome: "CDR Pedreira", coordenadas: [-46.5629714, -23.4126744], preco: 0 },
-  { nome: "Essencis", coordenadas: [-46.786638, -23.356849], preco: 0 },
-  { nome: "Olifar", coordenadas: [ -46.674365, -23.767057], preco: 0 },
-  { nome: "Lara", coordenadas: [-46.473925, -23.704714], preco: 0 },
-  { nome: "Carmosina", coordenadas: [-46.428443, -23.588269], preco: 0 },
-  { nome: "Mombaça", coordenadas: [-46.849432, -23.747264], preco: 0 },
-  { nome: "HSH", coordenadas: [-46.399498, -23.481151], preco: 0 },
-  { nome: "JS dos Santos", coordenadas: [-46.770521, -23.438445], preco: 0 },
-  { nome: "Geoincorp", coordenadas: [-46.931481, -23.617269], preco: 0 }
+  { nome: "CAVA", coordenadas: [-46.8120277777778, -23.5148333333333], preco: 0, status: "Ativo" },
+  { nome: "Empreiterra", coordenadas: [-46.5585531, -23.4747267], preco: 0, status: "Ativo"  },
+  { nome: "Imbulix", coordenadas: [-46.841689, -23.662857], preco: 0, status: "Ativo"  },
+  { nome: "Itaquareia", coordenadas: [-46.343509, -23.473241], preco: 0, status: "Ativo"  },
+  { nome: "UVR Grajau", coordenadas: [-46.6838059, -23.7948386], preco: 0, status: "Ativo"  },
+  { nome: "Temari", coordenadas: [-46.4647502, -23.4148032], preco: 0, status: "Ativo"  },
+  { nome: "Nova Ambiental", coordenadas: [-46.9783503, -23.5264676], preco: 0, status: "Ativo"  },
+  { nome: "CDR Pedreira", coordenadas: [-46.5629714, -23.4126744], preco: 0, status: "Ativo"  },
+  { nome: "Essencis", coordenadas: [-46.786638, -23.356849], preco: 0, status: "Ativo"  },
+  { nome: "Olifar", coordenadas: [ -46.674365, -23.767057], preco: 0, status: "Ativo"  },
+  { nome: "Lara", coordenadas: [-46.473925, -23.704714], preco: 0, status: "Ativo"  },
+  { nome: "Carmosina", coordenadas: [-46.428443, -23.588269], preco: 0, status: "Ativo"  },
+  { nome: "Mombaça", coordenadas: [-46.849432, -23.747264], preco: 0, status: "Ativo"  },
+  { nome: "HSH", coordenadas: [-46.399498, -23.481151], preco: 0, status: "Ativo"  },
+  { nome: "JS dos Santos", coordenadas: [-46.770521, -23.438445], preco: 0, status: "Ativo"  },
+  { nome: "Geoincorp", coordenadas: [-46.931481, -23.617269], preco: 0, status: "Ativo"  }
 ];
 
   const geocodificar = async endereco => {
@@ -127,7 +125,7 @@ async function calcularRotas() {
       const rotaURL = `https://www.google.com/maps/dir/${origemCoord[1]},${origemCoord[0]}/${destinoCoord[1]},${destinoCoord[0]}`;
 
       
-const linha = `<tr><td>${destino.nome}</td><td>${distanciaKm.toFixed(2)} km</td><td>${Math.round(duracaoMin)} min</td><td>${dmtBase.toFixed(2)}</td><td>R$ ${preco.toFixed(2)}</td><td>R$ ${((distanciaKm + 3) * dmtBase).toFixed(2)}</td><td>R$ ${((distanciaKm + 5) * dmtBase).toFixed(2)}</td><td><a href="${rotaURL}" target="_blank">Ver rota</a></td></tr>`;
+const linha = `<tr><td>${destino.nome}</td><td>${destino.status}</td><td>${distanciaKm.toFixed(2)} km</td><td>${Math.round(duracaoMin)} min</td><td>${dmtBase.toFixed(2)}</td><td>R$ ${preco.toFixed(2)}</td><td>R$ ${((distanciaKm + 3) * dmtBase).toFixed(2)}</td><td>R$ ${((distanciaKm + 5) * dmtBase).toFixed(2)}</td><td><a href="${rotaURL}" target="_blank">Ver rota</a></td></tr>`;
 destinosCalculados.push({
   nomeObra: document.getElementById("obra").value.trim(),
   enderecoOrigem: document.getElementById("end1").value.trim(),
@@ -206,27 +204,16 @@ function ordenarTabela(colIndex) {
 let destinosCalculados = []; // Global para armazenar os dados calculados
 
 function exportarXLSX() {
+  const rows = document.querySelectorAll('#tabelaResultados tbody tr');
   const wb = XLSX.utils.book_new();
-  const data = [['Nome da Obra', 'Endereço da Origem', 'Destino', 'Endereço de destino', 'Distância', 'DMT', 'Preço', '3 Km', '5 Km', 'Rota']];
-
-  destinosCalculados.forEach(item => {
-    data.push([
-      item.nomeObra,
-      item.enderecoOrigem,
-      item.destino,
-      item.enderecoDestino,
-      item.distancia,
-      item.dmt,
-      item.preco,
-      item.tresKm,
-      item.cincoKm,
-      item.rota
-    ]);
+  const data = [['Destino', 'Endereço', 'Status', 'Distância', 'Duração', 'Preço', 'Rota']];
+  rows.forEach(row => {
+    const cols = Array.from(row.querySelectorAll('td')).map(cell => cell.innerText);
+    data.push(cols);
   });
-
   const ws = XLSX.utils.aoa_to_sheet(data);
   XLSX.utils.book_append_sheet(wb, ws, 'Rotas');
-  const titulo = document.getElementById("tituloResultado").innerText.trim();
-  const nomeArquivo = titulo ? `${titulo}.xlsx` : "rotas.xlsx";
-  XLSX.writeFile(wb, nomeArquivo);
+
+  const titulo = document.getElementById("tituloResultado").innerText.replace(/\s+/g, '_');
+  XLSX.writeFile(wb, `${titulo}.xlsx`);
 }

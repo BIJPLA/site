@@ -32,22 +32,7 @@ function calcularValorAterroZero(km) {
 }
 
 async function geocode(address) {
-    const url = `https://nominatim.openstreetmap.org/search?format=json&limit=5&countrycodes=br&bounded=1&viewbox=-47.0,-23.3,-46.3,-23.9&q=${encodeURIComponent(address)}`;
-    const response = await fetch(url, { headers: { 'User-Agent': 'ConsultaSimples' } });
-    const data = await response.json();
-
-    if (data.length === 0) throw new Error("Endereço não encontrado");
-
-    // Ordena por importance
-    data.sort((a, b) => b.importance - a.importance);
-
-    const result = data[0];
-    if (!result || !result.lat || !result.lon) throw new Error("Resposta inválida da geocodificação");
-
-    console.log("Endereço retornado:", result.display_name);
-
-    return [parseFloat(result.lon), parseFloat(result.lat)];
-}`;
+    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`;
     const response = await fetch(url, { headers: { 'User-Agent': 'ConsultaSimples' } });
     const data = await response.json();
     if (data.length === 0) throw new Error("Endereço não encontrado");
@@ -96,7 +81,7 @@ async function calcularRota() {
             <table id="resultadoTabela" border="1" cellpadding="8" style="border-collapse: collapse; width: 100%; margin-top:15px;">
                 <tr style="background-color:#f0f0f0;">
                     <th>Origem</th>
-                    <th>Destino</th>
+                    <th class='sticky-col'>Destino</th>
                     <th>Distância (km)</th>
                     <th>Tempo (min)</th>
                     <th>DMT</th>
@@ -104,7 +89,7 @@ async function calcularRota() {
                 </tr>
                 <tr>
                     <td>${nomeOrigem || "-"}</td>
-                    <td>${nomeDestino || "-"}</td>
+                    <td class='sticky-col'>${nomeDestino || "-"}</td>
                     <td>${distanceKm.toFixed(2)}</td>
                     <td>${durationMin.toFixed(1)}</td>
                     <td>${dmt}</td>
